@@ -2,8 +2,11 @@ body{
 	background-image: url("../images/background2.jpg");
 }
 
-.container-fluid {
+.container {
 	margin: 10px 50px 10px 50px;
 	background-image: url("../images/background1.jpg");
 	color: white;
+}
+.pages {
+	display: none;
 }
