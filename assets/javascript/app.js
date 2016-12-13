@@ -1,11 +1,11 @@
 $(document).ready(function (){
 
 //main variables
-var number = 30;
+var number;
 var counter;
 var correctAnswers = 0;
 var incorrectAnswers = 0;
-var timedout = 0;
+var timedOut = 0;
 
 
 
@@ -20,34 +20,29 @@ var timedout = 0;
 //functions
 //counter functions for stop and run
 function run() {
+    number = 30;
       counter = setInterval(decrement, 1000);
     }
 
     //  The decrement function.
     function decrement() {
-
-      //  Decrease number by one.
       number--;
 
-      //  Show the number in the #show-number tag.
       $(".Timer").html("<h2>" + number + "</h2>");
 
-
-      //  Once number hits zero...
       if (number === 0) {
 
-        //  ...run the stop function.
          stop();
-         timedout++;
-		console.log("timed out: " + timedout);
-
-        //  Alert the user that time is up.
-        // alert("Time Up!");
+         timedOut++;
+		console.log("timed out: " + timedOut);
       }
     }
+
 function stop (){
 	clearInterval(counter);
 }
+
+
 function grading (){
 	$(".answer").on("click", function(){
      		stop();
@@ -64,23 +59,68 @@ console.log("correct: " + correctAnswers);
 		console.log("incorrect: " + incorrectAnswers);
 
 	});
-	// if (number === 0) { 
-	// 	timedout++;
-	// 	console.log("timed out: " + timedout);
-	// }
-
 
 }
+//time pages to show in
+function solarOne (){
+  $("#startPage").hide();
+  $("#solarOne").removeClass("pages");
+  run();
+  grading();
+};
+function solarTwo(){
+  $("#solarOne").hide();
+  $("#solarTwo").removeClass("pages");
+  run();
+  grading();
+};
+function solarThree(){
+  $("#solarTwo").hide();
+  $("#solarThree").removeClass("pages");
+  run();
+  grading();
+};
+function solarFour(){
+  $("#solarThree").hide();
+  $("#solarFour").removeClass("pages");
+  run();
+  grading();
+};
+function solarFive(){
+  $("#solarFour").hide();
+  $("#solarFive").removeClass("pages");
+  run();
+  grading();
+};
+function summaryPage(){
+  $("#solarFive").hide();
+  $("#summaryPage").removeClass("pages");
+  $("#correctAnswers").html(correctAnswers);
+  $("#incorrectAnswers").html(incorrectAnswers);
+  $("#timedOut").html(timedout);
+};
+
+//modal
+
+
+
+
+
+
+
+
+
 
 function startpage(){
 		
      $("#startPage").removeClass("pages");
      $("#startButton").on("click", function(){
-     	$("#startPage").hide();
-     	$("#solarOne").removeClass("pages");
-     	run();
-     	grading();
-
+      setTimeout(solarTwo, 32 * 1000);
+      setTimeout(solarThree, 64 * 1000);
+      setTimeout(solarFour, 96 * 1000);
+      setTimeout(solarFive, 128 * 1000);
+      setTimeout(summaryPage, 160 * 1000);
+     	solarOne();
      });
  };
 
