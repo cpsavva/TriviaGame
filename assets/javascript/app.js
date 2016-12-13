@@ -6,11 +6,19 @@ var counter;
 var correctAnswers = 0;
 var incorrectAnswers = 0;
 var timedOut = 0;
+var timeTwo;
+var timeThree;
+var timeFour;
+var timeFive;
+var timeSP;
 
 
 
-
-
+function reset(){
+  correctAnswers = 0;
+  incorrectAnswers = 0;
+  timedOut = 0;
+}
 
 
 
@@ -23,7 +31,6 @@ function run() {
     number = 30;
       counter = setInterval(decrement, 1000);
     }
-
     //  The decrement function.
     function decrement() {
       number--;
@@ -46,7 +53,8 @@ function stop (){
 function grading (){
 	$(".answer").on("click", function(){
      		stop();
-     		alert("you got it!");
+     		modal();
+        $(".answerBanner").html("Correct!");
      		correctAnswers++;
 console.log("correct: " + correctAnswers);
      	});
@@ -54,7 +62,8 @@ console.log("correct: " + correctAnswers);
      
 	$(".wrong").on("click", function(){
 		stop ();
-		alert("oh no!");
+		modal();
+    $(".answerBanner").html("Incorrect");
 		incorrectAnswers++;
 		console.log("incorrect: " + incorrectAnswers);
 
@@ -63,45 +72,69 @@ console.log("correct: " + correctAnswers);
 }
 //time pages to show in
 function solarOne (){
-  $("#startPage").hide();
+  setTimeout(solarTwo, 32 * 1000);
+  $("#startPage").addClass("pages");
   $("#solarOne").removeClass("pages");
   run();
   grading();
+  $(".answerReveal").html("Sun");
+  $(".next-question").on("click", solarTwo);
 };
 function solarTwo(){
-  $("#solarOne").hide();
+  setTimeout(solarThree, 32 * 1000);
+  stop();
+  $("#solarOne").addClass("pages");
   $("#solarTwo").removeClass("pages");
   run();
   grading();
+  $(".answerReveal").html("They are all dwarf planets");
+  $(".next-question").on("click", solarThree);
 };
 function solarThree(){
-  $("#solarTwo").hide();
+  setTimeout(solarFour, 32 * 1000);
+  stop();
+  $("#solarTwo").addClass("pages");
   $("#solarThree").removeClass("pages");
   run();
   grading();
+  $(".answerReveal").html("Neptune");
+  $(".next-question").on("click", solarFour);
 };
 function solarFour(){
-  $("#solarThree").hide();
+  setTimeout(solarFive, 32 * 1000);
+  stop();
+  $("#solarThree").addClass("pages");
   $("#solarFour").removeClass("pages");
   run();
   grading();
+  $(".answerReveal").html("They all have rings");
+  $(".next-question").on("click", solarFive);
 };
 function solarFive(){
-  $("#solarFour").hide();
+  setTimeout(summaryPage, 32 * 1000);
+  stop();
+  $("#solarFour").addClass("pages");
   $("#solarFive").removeClass("pages");
   run();
   grading();
+  $(".answerReveal").html("Asteroid Belt");
+  $(".next-question").on("click", summaryPage);
 };
 function summaryPage(){
-  $("#solarFive").hide();
+  stop();
+  $("#solarFive").addClass("pages");
   $("#summaryPage").removeClass("pages");
   $("#correctAnswers").html(correctAnswers);
   $("#incorrectAnswers").html(incorrectAnswers);
-  $("#timedOut").html(timedout);
+  $("#timedOut").html(timedOut);
 };
 
 //modal
-
+function modal () {
+  $('.modal').modal({
+          show: true
+        });
+};
 
 
 
@@ -112,32 +145,17 @@ function summaryPage(){
 
 
 function startpage(){
-		
+
      $("#startPage").removeClass("pages");
      $("#startButton").on("click", function(){
-      setTimeout(solarTwo, 32 * 1000);
-      setTimeout(solarThree, 64 * 1000);
-      setTimeout(solarFour, 96 * 1000);
-      setTimeout(solarFive, 128 * 1000);
-      setTimeout(summaryPage, 160 * 1000);
+      // timeTwo = setTimeout(solarTwo, 32 * 1000);
+      // timeThree = setTimeout(solarThree, 64 * 1000);
+      // timeFour = setTimeout(solarFour, 96 * 1000);
+      // timeFive = setTimeout(solarFive, 128 * 1000);
+      // timeSP = setTimeout(summaryPage, 160 * 1000);
      	solarOne();
      });
  };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -147,6 +165,13 @@ function startpage(){
 
 
 startpage();
+
+$("#playAgain").on("click", function(){
+    $("#summaryPage").addClass("pages");
+    reset ();
+    stop();
+    solarOne();
+  });
 
 
 
