@@ -6,18 +6,18 @@ var counter;
 var correctAnswers = 0;
 var incorrectAnswers = 0;
 var timedOut = 0;
-var timeTwo;
-var timeThree;
-var timeFour;
-var timeFive;
-var timeSP;
+
 
 
 
 function reset(){
+  $("#summaryPage").addClass("pages")
   correctAnswers = 0;
   incorrectAnswers = 0;
   timedOut = 0;
+  console.log("correct: " + correctAnswers);
+  console.log("incorrect: " + incorrectAnswers);
+  console.log("timed out: " + timedOut);
 }
 
 
@@ -51,20 +51,22 @@ function stop (){
 
 
 function grading (){
-	$(".answer").on("click", function(){
+	 $(".answer").on("click", function(){
+        correctAnswers++;
      		stop();
      		modal();
         $(".answerBanner").html("Correct!");
-     		correctAnswers++;
+     		
 console.log("correct: " + correctAnswers);
      	});
      	
      
-	$(".wrong").on("click", function(){
+   $(".wrong").on("click", function(){
+    incorrectAnswers++;
 		stop ();
 		modal();
     $(".answerBanner").html("Incorrect");
-		incorrectAnswers++;
+		
 		console.log("incorrect: " + incorrectAnswers);
 
 	});
@@ -72,7 +74,8 @@ console.log("correct: " + correctAnswers);
 }
 //time pages to show in
 function solarOne (){
-  setTimeout(solarTwo, 32 * 1000);
+  stop();
+  // setTimeout(solarTwo, 32 * 1000);
   $("#startPage").addClass("pages");
   $("#solarOne").removeClass("pages");
   run();
@@ -81,9 +84,9 @@ function solarOne (){
   $(".next-question").on("click", solarTwo);
 };
 function solarTwo(){
-  setTimeout(solarThree, 32 * 1000);
   stop();
-  $("#solarOne").addClass("pages");
+  // setTimeout(solarThree, 32 * 1000);
+  $("#solarOne").addClass("pages").val("button:disabled");
   $("#solarTwo").removeClass("pages");
   run();
   grading();
@@ -91,9 +94,9 @@ function solarTwo(){
   $(".next-question").on("click", solarThree);
 };
 function solarThree(){
-  setTimeout(solarFour, 32 * 1000);
   stop();
-  $("#solarTwo").addClass("pages");
+  // setTimeout(solarFour, 32 * 1000);
+  $("#solarTwo").addClass("pages").removeClass("wrong answer");
   $("#solarThree").removeClass("pages");
   run();
   grading();
@@ -101,9 +104,9 @@ function solarThree(){
   $(".next-question").on("click", solarFour);
 };
 function solarFour(){
-  setTimeout(solarFive, 32 * 1000);
   stop();
-  $("#solarThree").addClass("pages");
+  // setTimeout(solarFive, 32 * 1000);
+  $("#solarThree").addClass("pages").removeClass("wrong answer");
   $("#solarFour").removeClass("pages");
   run();
   grading();
@@ -111,9 +114,9 @@ function solarFour(){
   $(".next-question").on("click", solarFive);
 };
 function solarFive(){
-  setTimeout(summaryPage, 32 * 1000);
   stop();
-  $("#solarFour").addClass("pages");
+  // setTimeout(summaryPage, 32 * 1000);
+  $("#solarFour").addClass("pages").removeClass("wrong answer");
   $("#solarFive").removeClass("pages");
   run();
   grading();
@@ -122,7 +125,7 @@ function solarFive(){
 };
 function summaryPage(){
   stop();
-  $("#solarFive").addClass("pages");
+  $("#solarFive").addClass("pages").removeClass("wrong answer");
   $("#summaryPage").removeClass("pages");
   $("#correctAnswers").html(correctAnswers);
   $("#incorrectAnswers").html(incorrectAnswers);
@@ -148,11 +151,6 @@ function startpage(){
 
      $("#startPage").removeClass("pages");
      $("#startButton").on("click", function(){
-      // timeTwo = setTimeout(solarTwo, 32 * 1000);
-      // timeThree = setTimeout(solarThree, 64 * 1000);
-      // timeFour = setTimeout(solarFour, 96 * 1000);
-      // timeFive = setTimeout(solarFive, 128 * 1000);
-      // timeSP = setTimeout(summaryPage, 160 * 1000);
      	solarOne();
      });
  };
@@ -167,8 +165,7 @@ function startpage(){
 startpage();
 
 $("#playAgain").on("click", function(){
-    $("#summaryPage").addClass("pages");
-    reset ();
+    reset();
     stop();
     solarOne();
   });
