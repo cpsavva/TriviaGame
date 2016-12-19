@@ -1,0 +1,28 @@
+Questions [
+{
+	"Question": "Which is the largest body in the solar system?",
+	"Answer": "Sun",
+	"Choices": ["Jupiter", "Uranus", "Mercury"]
+}
+{
+	"Question": "Which is not a dwarf planet?",
+	"Answer": "All of them",
+	"Choices": ["Haumea", "Makemake", "Ceres"]
+}
+{
+	"Question":"What planet is covered in methane giving it its color?",
+	"Answer": "Neptune",
+	"Choices": ["Uranus", "Saturn", "Earth"]
+}
+{
+	"Question":"Which planet has rings?",
+	"Answer": "All have rings",
+	"Choices": ["Uranus","Saturn","Neptune"]
+}
+{
+	"Question": "What separates the terrestrial from the Jovian planets in space?",
+	"Answer": "Astroid Belt",
+	"Choices": ["Nothing", "Comets", "Mars"]
+}
+
+]

@@ -1,36 +1,49 @@
 $(document).ready(function (){
 
+var questions = [{
+  "Question": "Which is the largest body in the solar system?",
+  "AnswerWord":"Sun",
+  "Answer": 1,
+  "Choices": ["Jupiter","Sun", "Uranus", "Mercury"]
+},
+{
+  "Question": "Which is not a dwarf planet?",
+  "AnswerWord":"All of them",
+  "Answer": 3,
+  "Choices": ["Haumea", "Makemake", "Ceres","All of them"] 
+    
+},
+{
+  "Question":"What planet is covered in methane giving it its color?",
+  "AnswerWord":"Neptune",
+  "Answer": 2,
+  "Choices": ["Uranus", "Saturn", "Neptune","Earth"]
+},
+{
+  "Question":"Which planet has rings?",
+  "AnswerWord":"All have rings",
+  "Answer": 3,
+  "Choices": ["Uranus","Saturn","Neptune","All have rings"]
+},
+{
+  "Question": "What separates the terrestrial from the Jovian planets in space?",
+  "AnswerWord":"Astroid Belt",
+  "Answer": 0,
+  "Choices": ["Astroid Belt","Nothing", "Comets", "Mars"]
+}]
 //main variables
 var number;
 var counter;
-var correctAnswers = 0;
-var incorrectAnswers = 0;
+var correctAnswers = 0; 
+var incorrectAnswers = 0; 
 var timedOut = 0;
+var i = 0;
 
-
-
-
-function reset(){
-  $("#summaryPage").addClass("pages")
-  correctAnswers = 0;
-  incorrectAnswers = 0;
-  timedOut = 0;
-  console.log("correct: " + correctAnswers);
-  console.log("incorrect: " + incorrectAnswers);
-  console.log("timed out: " + timedOut);
-}
-
-
-
-
-
-
-//functions
-//counter functions for stop and run
-function run() {
-    number = 30;
+//timer function
+function countdown () {
+      number = 10;
       counter = setInterval(decrement, 1000);
-    }
+    
     //  The decrement function.
     function decrement() {
       number--;
@@ -40,99 +53,53 @@ function run() {
       if (number === 0) {
 
          stop();
+         modal();
          timedOut++;
-		console.log("timed out: " + timedOut);
+         $(".answerBanner").html("Times Up!");
+    console.log("timed out: " + timedOut);
       }
     }
-
+}
+//stop timer
 function stop (){
-	clearInterval(counter);
+  clearInterval(counter);
+}
+//run the question
+function run(){
+var randomQuestion = questions[i].Question;
+var randomAnswer = questions[i].Answer;
+var randomChoices = questions[i].Choices;
+var AnswerWord = questions[i].AnswerWord;
+
+  $("#questions").removeClass("pages")
+  $("#q").html(randomQuestion);
+  $("#0").data("option",0).html(randomChoices[0]);
+  $("#1").data("option",1).html(randomChoices[1]);
+  $("#2").data("option",2).html(randomChoices[2]);
+  $("#3").data("option",3).html(randomChoices[3]);
+
+  countdown();
+  $(".testButtons").on("click", function(){
+            stop();
+            if(randomAnswer === $(this).data("option")){
+              modal();
+              correctAnswers++;  
+              $(".answerBanner").html("Correct!");
+            }
+            else {
+              modal();
+              incorrectAnswers++;
+              $(".answerBanner").html("Incorrect");
+            }
+            $(".answerReveal").html(AnswerWord);
+
+              //testing
+              console.log("incorrect answers: " + incorrectAnswers)
+              console.log("correct answers: " + correctAnswers)
+            });
 }
 
 
-function grading (){
-	 $(".answer").on("click", function(){
-        correctAnswers++;
-     		stop();
-     		modal();
-        $(".answerBanner").html("Correct!");
-     		
-console.log("correct: " + correctAnswers);
-     	});
-     	
-     
-   $(".wrong").on("click", function(){
-    incorrectAnswers++;
-		stop ();
-		modal();
-    $(".answerBanner").html("Incorrect");
-		
-		console.log("incorrect: " + incorrectAnswers);
-
-	});
-
-}
-//time pages to show in
-function solarOne (){
-  stop();
-  // setTimeout(solarTwo, 32 * 1000);
-  $("#startPage").addClass("pages");
-  $("#solarOne").removeClass("pages");
-  run();
-  grading();
-  $(".answerReveal").html("Sun");
-  $(".next-question").on("click", solarTwo);
-};
-function solarTwo(){
-  stop();
-  // setTimeout(solarThree, 32 * 1000);
-  $("#solarOne").addClass("pages").val("button:disabled");
-  $("#solarTwo").removeClass("pages");
-  run();
-  grading();
-  $(".answerReveal").html("They are all dwarf planets");
-  $(".next-question").on("click", solarThree);
-};
-function solarThree(){
-  stop();
-  // setTimeout(solarFour, 32 * 1000);
-  $("#solarTwo").addClass("pages").removeClass("wrong answer");
-  $("#solarThree").removeClass("pages");
-  run();
-  grading();
-  $(".answerReveal").html("Neptune");
-  $(".next-question").on("click", solarFour);
-};
-function solarFour(){
-  stop();
-  // setTimeout(solarFive, 32 * 1000);
-  $("#solarThree").addClass("pages").removeClass("wrong answer");
-  $("#solarFour").removeClass("pages");
-  run();
-  grading();
-  $(".answerReveal").html("They all have rings");
-  $(".next-question").on("click", solarFive);
-};
-function solarFive(){
-  stop();
-  // setTimeout(summaryPage, 32 * 1000);
-  $("#solarFour").addClass("pages").removeClass("wrong answer");
-  $("#solarFive").removeClass("pages");
-  run();
-  grading();
-  $(".answerReveal").html("Asteroid Belt");
-  $(".next-question").on("click", summaryPage);
-};
-function summaryPage(){
-  stop();
-  $("#solarFive").addClass("pages").removeClass("wrong answer");
-  $("#summaryPage").removeClass("pages");
-  $("#correctAnswers").html(correctAnswers);
-  $("#incorrectAnswers").html(incorrectAnswers);
-  $("#timedOut").html(timedOut);
-};
-
-//modal
 function modal () {
   $('.modal').modal({
           show: true
@@ -140,63 +107,60 @@ function modal () {
 };
 
 
+//modal
+//function to start next questions
+function nextQuestion(){
+  $(".next-question").on("click", function(){
+    $(".testButtons").empty();
+    i++;
+    
+    if (i === 5){
+          function summary(){
+            stop();
+            $("#questions").addClass("pages");
+            $("#summaryPage").removeClass("pages");
+            $("#correctAnswers").html(correctAnswers);
+            $("#incorrectAnswers").html(incorrectAnswers);
+            $("#timedOut").html(timedOut);
+
+          }
+          summary();
+        }
+         else {
+          alert("not end!")
+          run();
+         } 
+  })
+}
 
 
 
-
-
-
+//MAIN PROCESS//  
 
 function startpage(){
 
      $("#startPage").removeClass("pages");
      $("#startButton").on("click", function(){
-     	solarOne();
+        $("#startPage").addClass("pages");
+        run();
+        
+        nextQuestion();
+        
      });
+
  };
 
 
-
-//main process
-
-
-
-
 startpage();
-
-$("#playAgain").on("click", function(){
-    reset();
-    stop();
-    solarOne();
-  });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ 
+ $("#playAgain").on("click", function(){
+  $("#summaryPage").addClass("pages");
+  stop();
+  incorrectAnswers = 0;
+  correctAnswers = 0;
+  i=0;
+  startpage();
+ });
 
 
 });

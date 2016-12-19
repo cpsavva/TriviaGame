@@ -4,94 +4,45 @@
 	<title>Trivia Game</title>
 	<!--bootstrap css-->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
-	<!--mycss file-->
+
+	<!--google font-->
+	<link href="https://fonts.googleapis.com/css?family=Exo|Mirza:400,700" rel="stylesheet">
+
+	<!--my css file-->
 	<link rel="stylesheet" type="text/css" href="./assets/css/style.css">
 </head>
 <body>
 	<div class="container">
-		<h1 class="display-3 text-md-center">Solar System Trivia</h1>
-		<!--start page-->
-		<div class="pages" id="startPage">
-			<button id="startButton">Start</button>
-		</div>
-		<!--Question 1-->
-		<div class="pages" id="solarOne">
-			<div class="Timer"></div>
-			<div class="Question">
-				<p>Which is the largest body in the solar system?</p>
-				<div class="options">
-					<button class="wrong">Jupiter</button><br>
-					<button class="answer">Sun</button><br>
-					<button class="wrong">Uranus</button><br>
-					<button class="wrong">Mercury</button>
-				</div>
+		<div class="jumbotron">
+			<h1 class="display-3 text-md-center">Solar System Trivia</h1>
+			<!--start page-->
+			<div class="row pages text-md-center" id="startPage">
+				<button class="btn-lg btn-block" id="startButton">Start</button>
 			</div>
 		</div>
-		<!--Question 2-->
-		<div class="pages" id="solarTwo">
-			<div class="Timer"></div>
-			<div class="Question">
-				<p>Which is not a dwarf planet?</p>
-				<div class="options">
-					<button class="wrong">Haumea</button><br>
-					<button class="wrong">Makemake</button><br>
-					<button class="wrong">Ceres</button><br>
-					<button class="answer">They are all dwarf planets</button>
-				</div>
+		<div class="row pages text-md-center display-3" id="questions">
+			<div class="btn btn-primary timeFont">
+				<h3>Time Left:</h3>
+				<div class="Timer"></div>
 			</div>
+			<h3 id="q"></h3>
+			<button class="testButtons btn-lg btn-block" id="0"></button>
+			<button class="testButtons btn-lg btn-block" id="1"></button>
+			<button class="testButtons btn-lg btn-block" id="2"></button>
+			<button class="testButtons btn-lg btn-block" id="3"></button>
 		</div>
-		<!--Question 3-->
-		<div class="pages" id="solarThree">
-			<div class="Timer"></div>
-			<div class="Question">
-				<p>What planet is covered in methane giving it its color?</p>
-				<div class="options">
-					<button class="answer">Neptune</button><br>
-					<button class="wrong">Uranus</button><br>
-					<button class="wrong">Saturn</button><br>
-					<button class="wrong">Earth</button>
-				</div>
-			</div>
-		</div>
-		<!--Question 4-->
-		<div class="pages" id="solarFour">
-			<div class="Timer"></div>
-			<div class="Question">
-				<p>Which planet has rings?</p>
-				<div class="options">
-					<button class="wrong">Uranus</button><br>
-					<button class="wrong">Saturn</button><br>
-					<button class="wrong">Neptune</button><br>
-					<button class="answer">They all have rings</button>
-				</div>
-			</div>
-		</div>
-		<!--Question 5-->
-		<div class="pages" id="solarFive">
-			<div class="Timer"></div>
-			<div class="Question">
-				<p>What separates the terrestrial from the Jovian planets in space?</p>
-				<div class="options">
-					<button class="wrong">Nothing</button><br>
-					<button class="wrong">Mars</button><br>
-					<button class="answer">Asteroid belt</button><br>
-					<button class="wrong">Comets</button>
-				</div>
-			</div>
-		</div>
-		<!--End of Game-->
-		<div class="pages" id="summaryPage">
-			<div id="current time"></div>
-			<h3>Here's total</h3>
+		<!--end of game-->
+		<div class="row pages text-md-center" id="summaryPage">
 			<p>Correct:</p><div id="correctAnswers"></div>
 			<p>Incorrect: </p><div id="incorrectAnswers"></div>
 			<p>TimedOut</p><div id="timedOut"></div>
+			<br>
 			<button id="playAgain">Play Again!</button>
 		</div>
 	</div>
 	<div class="modal fade">
 	  <div class="modal-dialog" role="document">
-	    <div class="modal-content">
+	    <div class="modal-content text-md-center">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
@@ -102,7 +53,7 @@
 	        <p>The answer is <span class="answerReveal"></span>!</p>
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-primary next-question" data-dismiss="modal">Next Question</button>
+	        <button type="button" class="btn btn-primary next-question" data-dismiss="modal" aria-label="Close">Next Question</button>
 	      </div>
 	    </div><!-- /.modal-content -->
 	  </div><!-- /.modal-dialog -->
